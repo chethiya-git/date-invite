@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Tiny Ask — Will you go out with me?</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Particle Effects Canvas -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Top Action Bar -->
+  <nav class="top-nav">
+    <button class="icon-btn" id="btn-mute" title="Toggle Sound">🔊 Sound</button>
+    <button class="icon-btn" id="btn-customize" title="Customize Names">⚙️ Customize</button>
+  </nav>
+
+  <!-- Main Card Container -->
+  <main class="app-container" id="app-card">
+    
+    <!-- STEP 1: The playful proposal -->
+    <section class="step-view active" id="step-1">
+      <div class="dodge-counter" id="dodge-counter">1 dodge</div>
+      
+      <div class="header-badge">A TINY ASK</div>
+      <h1 class="title">Will you go <span class="highlight">out</span> with me?</h1>
+      <p class="subtitle" id="subtitle-1">Catch No if you can.</p>
+
+      <!-- Layered translucent petal flower illustration -->
+      <div class="flower-container">
+        <svg class="flower-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Flower Stem and Leaf -->
+          <path d="M100 120 C100 155 106 170 112 185" stroke="#90be6d" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M106 142 C120 135 132 145 125 158 C115 158 107 148 106 142 Z" fill="#a7c957" opacity="0.85"/>
+          
+          <!-- Overlapping Translucent Petals (Multiplied) -->
+          <g style="mix-blend-mode: multiply;" id="flower-petals">
+            <!-- Petal 1 (0 deg) -->
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f4978e" opacity="0.68" transform="rotate(0 100 100)"/>
+            <!-- Petal 2 (72 deg) -->
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f8ad9d" opacity="0.68" transform="rotate(72 100 100)"/>
+            <!-- Petal 3 (144 deg) -->
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f4978e" opacity="0.68" transform="rotate(144 100 100)"/>
+            <!-- Petal 4 (216 deg) -->
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f8ad9d" opacity="0.68" transform="rotate(216 100 100)"/>
+            <!-- Petal 5 (288 deg) -->
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f4978e" opacity="0.68" transform="rotate(288 100 100)"/>
+          </g>
+
+          <!-- Flower Center Pistil -->
+          <circle cx="100" cy="100" r="10" fill="#e07a5f" opacity="0.5"/>
+          <circle cx="100" cy="100" r="5" fill="#f4f1de"/>
+        </svg>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="actions-container" id="actions-container">
+        <button class="btn-yes" id="btn-yes">YES</button>
+        <button class="btn-no" id="btn-no">No</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: Date Confirmed -->
+    <section class="step-view" id="step-2">
+      <div class="header-badge">DATE CONFIRMED</div>
+      <h1 class="title">Yay — it's a date.</h1>
+
+      <!-- Flower illustration -->
+      <div class="flower-container">
+        <svg class="flower-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 120 C100 155 106 170 112 185" stroke="#90be6d" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M106 142 C120 135 132 145 125 158 C115 158 107 148 106 142 Z" fill="#a7c957" opacity="0.85"/>
+          <g style="mix-blend-mode: multiply;">
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f4978e" opacity="0.68" transform="rotate(0 100 100)"/>
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f8ad9d" opacity="0.68" transform="rotate(72 100 100)"/>
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f4978e" opacity="0.68" transform="rotate(144 100 100)"/>
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f8ad9d" opacity="0.68" transform="rotate(216 100 100)"/>
+            <ellipse cx="100" cy="70" rx="28" ry="46" fill="#f4978e" opacity="0.68" transform="rotate(288 100 100)"/>
+          </g>
+          <circle cx="100" cy="100" r="10" fill="#e07a5f" opacity="0.5"/>
+          <circle cx="100" cy="100" r="5" fill="#f4f1de"/>
+        </svg>
+      </div>
+
+      <p class="celebrate-message">I knew you had great taste 😎</p>
+
+      <button class="btn-plan" id="btn-go-to-plan">
+        Now let's plan it → 💌
+      </button>
+
+      <div class="floating-hearts-line">
+        💖 💕 🌸 💖 🌸 💕 💖
+      </div>
+    </section>
+
+    <!-- STEP 3: Day, Time & Plan Picker -->
+    <section class="step-view" id="step-3">
+      <div class="header-badge">LET'S MAKE IT OFFICIAL</div>
+      <h1 class="title">Pick the day,<br><span class="highlight">time & plan</span></h1>
+
+      <form class="planner-form" onsubmit="event.preventDefault();">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="field-label" for="input-date">WHICH DAY?</label>
+            <input type="date" id="input-date" class="input-styled" required>
+          </div>
+          <div class="form-field">
+            <label class="field-label" for="input-time">WHAT TIME?</label>
+            <input type="time" id="input-time" class="input-styled" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">THE PLAN</label>
+          <div class="plans-grid">
+            <div class="plan-chip" data-plan="Coffee">☕ Coffee</div>
+            <div class="plan-chip" data-plan="A movie">🎬 A movie</div>
+            <div class="plan-chip selected" data-plan="Dinner">🍝 Dinner</div>
+            <div class="plan-chip" data-plan="Walk in the park">🌳 Walk in the park</div>
+            <div class="plan-chip" data-plan="Drinks">🍸 Drinks</div>
+            <div class="plan-chip" data-plan="Surprise me">🎁 Surprise me</div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-seal" id="btn-seal">
+          Seal it with a letter 💌
+        </button>
+      </form>
+    </section>
+
+    <!-- STEP 4: The Romantic Letter -->
+    <section class="step-view" id="step-4">
+      <div class="header-badge">A LITTLE LETTER FOR YOU</div>
+
+      <!-- Selected summary pills -->
+      <div class="letter-summary-chips">
+        <span class="summary-chip" id="chip-date">📅 Saturday, Oct 24</span>
+        <span class="summary-chip" id="chip-time">⏰ 7:30 PM</span>
+        <span class="summary-chip" id="chip-plan">🍝 Dinner</span>
+      </div>
+
+      <!-- Romantic Letter Paper -->
+      <article class="letter-paper">
+        <h2 class="letter-salutation" id="letter-salutation">Dear You,</h2>
+        
+        <div class="letter-body">
+          <p>So... it's official. It's a date! 🥂</p>
+          <p id="letter-details-text">Let's meet Saturday, Oct 24 at 7:30 PM, for dinner.</p>
+          <p>I promise good vibes, terrible jokes, and my very best self.</p>
+          <p>I already can't stop smiling. See you there.</p>
+          
+          <div class="letter-signoff">
+            <p>Yours (a little nervously),</p>
+            <p class="letter-author" id="letter-author">~ Me ❤️</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Letter Actions -->
+      <div class="letter-actions">
+        <a href="#" target="_blank" class="btn-whatsapp" id="btn-whatsapp">
+          <span>💬 Send confirmation on WhatsApp</span>
+        </a>
+        <button class="btn-share" id="btn-share">
+          Share the good news 🎉
+        </button>
+        <button class="btn-restart" id="btn-restart">
+          Exit ↻
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Customization Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Customize Invitation</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-field">
+          <label for="modal-her-name">Her Name (or Nickname):</label>
+          <input type="text" id="modal-her-name" class="input-styled" placeholder="e.g. Maya / Babe / Sweetheart">
+        </div>
+        <div class="modal-field">
+          <label for="modal-his-name">Your Name:</label>
+          <input type="text" id="modal-his-name" class="input-styled" placeholder="e.g. Chethiya">
+        </div>
+        <div class="modal-field">
+          <label for="modal-phone">Your WhatsApp Number (with country code):</label>
+          <input type="tel" id="modal-phone" class="input-styled" placeholder="e.g. +94771234567">
+          <small style="color:#888; font-size:11px;">When she confirms, WhatsApp will open directly to your chat!</small>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-save-modal" id="btn-save-modal">Save & Update View</button>
+        <button class="btn-copy-link" id="btn-copy-link">🔗 Copy Shareable Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast-msg"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
